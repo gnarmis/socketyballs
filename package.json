@@ -1,0 +1,11 @@
+{
+  "name": "p2p2",
+  "version": "0.0.1",
+  "description": "A simple p2p game",
+  "author": "Gursimran Singh",
+  "main": "peer_server/server.js",
+  "dependencies": {
+    "peer": "0.2.6",
+    "express": "3.x"
+  }
+}
