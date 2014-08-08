@@ -14,7 +14,7 @@ $(function() {
   var getPeers = function() {
     $.getJSON('connected', function(data){
       var mapped = _.map(data, function(e) {return {id: e, name: "Peer "+e}});
-      peers = _.union(peers, mapped);
+      peers = mapped;
       // Render with updated information
       React.renderComponent(<PeerList peers={peers}/>, $('#react-wrapper').get(0));
     });
