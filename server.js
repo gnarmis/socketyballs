@@ -12,6 +12,10 @@ peer_central.get('/connected', function (req, res) {
   return res.json(Object.keys(peer_server._clients.peerjs));
 });
 
+// serve out the peer files
+peer_central.use(express.static(__dirname + '/peer'));
+
 peer_central.listen(3000, function() {
     console.log('Listening on port %d', 3000);
 });
+
