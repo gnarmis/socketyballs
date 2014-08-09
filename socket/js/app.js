@@ -1,24 +1,10 @@
 /** @jsx React.DOM */
 $(function() {
-
-  var my_id = chance.guid();
-
-  var peer = new Peer(my_id, {host: 'localhost', port: 9001, path: '/peer_server'});
-
-  peer.on('open', function(id) {
-    console.log('I am ' + id);
-  });
+  var socket = io();
 
   // Define what peers are and how to display them...
 
   var peers = [];
-  window.inConns = [];
-  window.outConns = [];
-
-  peer.on("connection", function(conn) {
-    console.log("Received a connection from " + conn.peer);
-    window.inConns = _.union(window.inConns, [connection]);
-  });
 
   var getPeers = function() {
     $.getJSON('connected', function(data){
@@ -26,11 +12,6 @@ $(function() {
       peers = mapped;
       // Render with updated information
       //React.renderComponent(<PeerList peers={peers}/>, $('#react-wrapper').get(0));
-      // Connect to all of them
-      window.outConns = _.map(_.filter(peers, function(x) {return x.id!=my_id}), function(e) {
-        console.log("Connecting to " + e.id);
-        peer.connect(e.id);
-      });
     });
   };
 
@@ -51,13 +32,12 @@ $(function() {
 
   // Ball Handling...
 
-  window.numBalls=1;
+  window.numBalls=0;
 
   // Load and re-render every 2 seconds...
   getPeers();
   window.setInterval(function(){
+    window.numBalls = _.size(peers)
     getPeers();
-    window.numBalls = 1+_.size(_.uniq(_.union(window.inConns, window.outConns)));
-    console.log(window.numBalls);
-  }, 500);
+  }, 200);
 });

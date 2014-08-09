@@ -1,21 +1,30 @@
-// Used to facilitate peer to peer comm
-var PeerServer = require('peer').PeerServer;
 // Traditional web app
 var express = require('express');
-var peer_central = express();
+var app = express();
+var http = require('http').Server(app);
+// Socket.io magic
+var io = require('socket.io')(http);
 
+io.on('connection', function(socket){
+  console.log('a user connected');
 
-// Help peers find each other
-var peer_server = new PeerServer({port: 9001, path: '/peer_server'});
-
-peer_central.get('/connected', function (req, res) {
-  return res.json(Object.keys(peer_server._clients.peerjs));
+  socket.on('disconnect', function(){
+    console.log('user disconnected');
+  });
 });
 
-// serve out the peer files
-peer_central.use(express.static(__dirname + '/peer'));
+app.use(express.static(__dirname + '/socket'));
 
-peer_central.listen(3000, function() {
-    console.log('Listening on port %d', 3000);
+// root
+app.get('/', function(req, res){
+  res.sendfile('socket/index.html');
 });
 
+// connected clients
+app.get('/connected', function (req, res) {
+  return res.json(Object.keys(io.of('/').connected))
+});
+
+http.listen(3000, function(){
+  console.log('listening on *:3000');
+});

@@ -127,7 +127,7 @@ var addBall = function() {
 }
 
 var removeBall = function() {
-  balls.pop()
+  return balls.pop().path.remove();
 }
 
 for (var i = 0; i < window.numBalls; i++) {
@@ -139,7 +139,7 @@ function onFrame() {
     for (var i = 0; i<(window.numBalls-balls.length); i++) {
       addBall();
     }
-  } else if (balls.length < window.numBalls) {
+  } else if (balls.length > window.numBalls) {
     for (var i = 0; i<(balls.length-window.numBalls); i++) {
       removeBall();
     }

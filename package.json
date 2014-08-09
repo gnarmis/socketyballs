@@ -5,7 +5,7 @@
   "author": "Gursimran Singh",
   "main": "server.js",
   "dependencies": {
-    "peer": "0.2.6",
-    "express": "3.x"
+    "express": "3.x",
+    "socket.io": "1.0.6"
   }
 }
