@@ -25,6 +25,8 @@ app.get('/connected', function (req, res) {
   return res.json(Object.keys(io.of('/').connected))
 });
 
-http.listen(3000, function(){
+app.set('port', process.env.PORT || 3000);
+
+http.listen(app.get('port'), function(){
   console.log('listening on *:3000');
 });
