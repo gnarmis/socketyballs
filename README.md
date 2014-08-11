@@ -1,8 +1,7 @@
-# p2p^2
+# SocketyBalls
 
-Double or nothing! A p2p game all about powers of 2.
+An quick experiment with Paper.js and Socket.io. The number of balls
+corresponds to number of active socket connections.
 
-## Architecture
-
-Now doing it via sockets! Because there's a weird limitation on number of
-peers in peerjs.
+Seems like a simple enough base for all kind of multiplayer game dev
+experiments?
